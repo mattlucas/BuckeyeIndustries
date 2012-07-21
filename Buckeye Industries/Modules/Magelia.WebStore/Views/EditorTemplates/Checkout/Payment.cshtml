@@ -1,0 +1,11 @@
+﻿<div class="mag-payment">
+    @Html.ValidationSummary()
+    <div>
+        @Html.Label("AcceptSalesConditions", T("I accept sales conditions").ToString())
+        @Html.CheckBox("AcceptSalesConditions")
+        @Html.Hidden("BasketHash")
+    </div>
+    <div>
+        <button class="mag-order" type="button">@T("Order")</button>
+    </div>
+</div>

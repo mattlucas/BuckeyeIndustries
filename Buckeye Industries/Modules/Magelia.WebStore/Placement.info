@@ -1,0 +1,35 @@
+﻿<Placement>
+  <Place Parts_Settings_Edit="Content:0"/>
+  <Place Parts_UserAddresses_Edit="Content:5"/>
+  <Place Parts_CatalogHierarchy_Edit="Content:5"/>
+  <Place Parts_LocationPicker_Edit="Content:5"/>
+  <Place Parts_CurrencyPicker_Edit="Content:5"/>
+  <Place Parts_ProductList_Edit="Content:5"/>
+  <Place Parts_Product_Edit="Content:5"/>
+  <Place Parts_BasketCount_Edit="Content:5"/>
+  <Place Parts_Basket_Edit="Content:5"/>
+  <Place Parts_Checkout_Edit="Content:5"/>
+  <Place Parts_UserOrders_Edit="Content:5"/>
+  <Place Parts_UserAddresses="Content:0"/>
+  <Place Parts_CatalogHierarchy="Content:0"/>
+  <Place Parts_LocationPicker="Content:0"/>
+  <Place Parts_CurrencyPicker="Content:0"/>
+  <Place Parts_ProductList="Content:0"/>
+  <Place Parts_Product="Content:0"/>
+  <Place Parts_BasketCount="Content:0"/>
+  <Place Parts_Basket="Content:0"/>
+  <Place Parts_Checkout="Content:0"/>
+  <Place Parts_UserOrders="Content:0"/>
+  <Match DisplayType="SummaryAdmin">
+    <Place Parts_UserAddresses="-"/>
+    <Place Parts_CatalogHierarchy="-"/>
+    <Place Parts_LocationPicker="-"/>
+    <Place Parts_CurrencyPicker="-"/>
+    <Place Parts_ProductList="-"/>
+    <Place Parts_Product="-"/>
+    <Place Parts_BasketCount="-"/>
+    <Place Parts_Basket="-"/>
+    <Place Parts_Checkout="-"/>
+    <Place Parts_UserOrders="-"/>
+  </Match>
+</Placement>

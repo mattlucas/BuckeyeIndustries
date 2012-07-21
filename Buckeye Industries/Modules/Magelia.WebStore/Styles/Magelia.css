@@ -1,0 +1,527 @@
+﻿/*
+*   GENERAL
+*/
+
+.mag-error
+{
+    color: White;
+    font-weight: bold;
+    background-color: red;
+    padding: 0.5em;
+}
+
+.mag-empty
+{
+    color: White;
+    font-weight: bold;
+    background-color: #dbdbdb;
+    padding: 0.5em;
+}
+
+.mag-info
+{
+    color: #dbdbdb;
+    font-weight: bold;
+    border: 1px solid #dbdbdb;
+    padding: 0.5em;
+}
+
+/*
+*   CATALOG HIERARCHY
+*/
+
+ul.mag-catalogHierarchy, ul.mag-catalogHierarchy ul
+{
+    list-style: none;
+}
+
+ul.mag-catalogHierarchy div
+{
+    overflow: hidden;
+}
+
+ul.mag-catalogHierarchy a
+{
+    display: block;
+    height: 20px;
+    float: left;
+}
+
+ul.mag-catalogHierarchy a.expander
+{
+    text-indent: -9999px;
+    width: 20px;
+    background: url('Images/arrows.png') no-repeat 0 -20px;
+}
+
+ul.mag-catalogHierarchy a.expander.expanded
+{
+    background-position: 0 -40px;
+}
+
+ul.mag-catalogHierarchy a.expander.empty
+{
+    background-position: 0 -60px;
+}
+
+ul.mag-catalogHierarchy a.item.selected
+{
+    font-weight: bold;
+}
+
+/*
+*   BASKET COUNT
+*/
+
+.mag-basketCount p
+{
+    margin: 0;
+}
+
+/*
+*   LOCATION AND CURRENCY PICKERS
+*/
+
+.mag-locationPicker > *, .mag-currencyPicker > *
+{
+    display: inline;
+}
+
+/*
+*   PRODUCT LIST
+*/
+
+table.mag-productList
+{
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #dbdbdb;
+    border-top: none;
+    border-bottom: none;
+}
+
+table.mag-productList td, table.mag-productList th
+{
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #dbdbdb;
+    border-left: none;
+    border-right: none;
+    vertical-align: middle;
+}
+
+table.mag-productList th
+{
+    background-color: rgb(246, 246, 246);
+}
+
+table.mag-productList th a.sorted
+{
+    font-weight: bold;
+    padding-left: 25px;
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    background: url('Images/arrows.png') no-repeat 0 0;
+}
+
+table.mag-productList th a.sorted.desc
+{
+    background-position: 0 -40px;
+}
+
+table.mag-productList tfoot ul
+{
+    list-style: none;
+    margin: 0;
+}
+
+table.mag-productList tfoot ul > li
+{
+    display: inline;
+}
+
+table.mag-productList tfoot ul > li.selected
+{
+    font-weight: bold;
+}
+
+table.mag-productList img
+{
+    max-width: 100px;
+    max-height: 100px;
+}
+
+table.mag-productList button
+{
+    padding: 0;
+}
+
+/*
+*   ADD TO BASKET
+*/
+
+.mag-addToBasket
+{
+    text-align: right;
+}
+
+.mag-addToBasket > *
+{
+    display: inline;
+}
+
+.mag-addToBasket input[type=text]
+{
+    width: 30px;
+    display: inline;
+    text-align: center;
+}
+
+/*
+*   BASKET
+*/
+
+div.mag-basket table
+{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+div.mag-basket table th, div.mag-basket table td
+{
+    border: 1px solid #dbdbdb;
+    vertical-align: middle;
+    padding: 5px;
+    text-align: center;
+}
+
+div.mag-basket table tbody td[colspan]
+{
+    font-weight: bold;
+}
+
+div.mag-basket table th
+{
+    font-weight: bold;
+    background-color: rgb(246, 246, 246);
+}
+
+div.mag-basket table img
+{
+    max-width: 100px;
+    max-height: 100px;
+}
+
+div.mag-basket table td.mag-total
+{
+    text-align: right;
+}
+
+div.mag-basket table tbody input[type=text]
+{
+    width: 30px;
+    display: inline;
+    text-align: center;
+}
+
+div.mag-basket table form.mag-quantity
+{
+    width: 100px;
+}
+
+div.mag-basket table button.mag-removeProduct
+{
+    margin: 0;
+    padding: 0;
+    width: 15px;
+    text-align: center;
+}
+
+div.mag-basket table tfoot tr.mag-message td
+{
+    text-align: center;
+}
+
+div.mag-basket table tfoot tr.mag-options td
+{
+    text-align: center;
+    font-weight: bold;
+}
+
+div.mag-basket table tfoot td
+{
+    font-weight: normal;
+}
+
+div.mag-basket table tfoot td[colspan]
+{
+    text-align: right;
+}
+
+div.mag-basket table tfoot ul
+{
+    display: inline;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+div.mag-basket table tfoot ul > li
+{
+    display: inline;
+}
+
+div.mag-basket table tfoot form
+{
+    display: inline;
+}
+
+div.mag-basket table tfoot input[type=text]
+{
+    display: inline;
+}
+
+div.mag-basket table tfoot button
+{
+    margin: 0;
+    padding: 0 2px 0 2px;
+}
+
+/*
+*   CHECKOUT
+*/
+
+ul.mag-checkout
+{
+    border: 1px solid #dbdbdb;
+    border-bottom: none;
+    list-style: none;
+}
+
+ul.mag-checkout > li
+{
+    padding: 0;
+    margin: 0;
+}
+
+ul.mag-checkout > li > div.mag-header
+{
+    border-bottom: 1px solid #dbdbdb;
+    background-color: rgb(246, 246, 246);
+    overflow: hidden;
+    padding: 0 5px;
+    height: 30px;
+    line-height: 30px;
+}
+
+ul.mag-checkout > li > div.mag-header > h3
+{
+    margin: 0;
+    float: left;
+}
+
+ul.mag-checkout > li > div.mag-header > a.mag-modify
+{
+    float: right;
+}
+
+ul.mag-checkout > li > div.mag-content
+{
+    padding: 10px;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+/*
+*   SHIPPINGRATES
+*/
+
+.mag-shippingRates table, table.mag-shippingRates
+{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.mag-shippingRates tbody td
+{
+    vertical-align: middle;
+    text-align: center;
+    border: 1px solid #dbdbdb;
+}
+
+.mag-shippingRates td
+{
+    padding: 5px;
+}
+
+.mag-shippingRates button
+{
+    margin: 0;
+}
+
+/*
+*   PAYMENT
+*/
+
+.mag-payment label
+{
+    display: inline;
+}
+
+.mag-payment button
+{
+    margin: 0;
+}
+
+/*
+*   ADDRESSES MANAGER
+*/
+
+.mag-addressesManager > div > label
+{
+    display: inline;
+}
+
+
+/*
+*   ORDERS
+*/
+
+.mag-orders
+{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.mag-orders td, .mag-orders th
+{
+    border: 1px solid #dbdbdb;
+    text-align: center;
+    padding: 5px;
+}
+
+.mag-orders th
+{
+    background-color: rgb(246, 246, 246);
+}
+
+.mag-orders th a.sorted
+{
+    font-weight: bold;
+    padding-left: 25px;
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    background: url('Images/arrows.png') no-repeat 0 0;
+}
+
+.mag-orders th a.sorted.desc
+{
+    background-position: 0 -40px;
+}
+
+.mag-orders tfoot ul
+{
+    list-style: none;
+    margin: 0;
+}
+
+.mag-orders tfoot ul > li
+{
+    display: inline;
+}
+
+.mag-orders tfoot ul > li.selected
+{
+    font-weight: bold;
+}
+
+/*
+*   ORDER
+*/
+
+.mag-order
+{
+    overflow: hidden;
+}
+
+.mag-order table.order
+{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.mag-order table.order td
+{
+    border: 1px solid #dbdbdb;
+    vertical-align: middle;
+    text-align: center;
+    padding: 5px;
+}
+
+.mag-order table.order td.summary
+{
+    font-weight: bold;
+    text-align: right;
+}
+
+.mag-order table.order tr.header > td
+{
+    font-weight: bold;
+}
+
+.mag-order table.order img
+{
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.mag-order div.address
+{
+    float: left;
+    width: 30%;
+    margin-top: 10px;
+    border: 1px solid #dbdbdb;
+}
+
+.mag-order div.address > h3
+{
+    margin: 0;
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.mag-order div.address > div
+{
+    padding: 10px;
+}
+
+.mag-order div.address + div.address
+{
+    margin-left: 10px;
+}
+
+.mag-order table.summary
+{
+    margin-top: 10px;
+    border-collapse: collapse;
+    float: right;
+}
+
+.mag-order table.summary td
+{
+    border: 1px solid #dbdbdb;
+    padding: 5px;
+}
+
+.mag-order table.summary tr > td:first-child
+{
+    font-weight: bold;
+}
+
+.mag-order table.summary tfoot td
+{
+    font-weight: normal !important;
+    text-align: center;
+}

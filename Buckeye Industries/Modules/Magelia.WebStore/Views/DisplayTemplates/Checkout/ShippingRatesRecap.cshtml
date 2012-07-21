@@ -1,0 +1,81 @@
+﻿<table class="mag-shippingRates">
+    <tbody>
+        @{
+            Int32 packageCount = 0; 
+        }
+        @if (Enumerable.Any(this.Model))
+        {
+            foreach (var shippingRate in this.Model)
+            {
+            <tr>
+                <td colspan="6">
+                    @String.Format(this.T("Package #{0}").ToString(), packageCount + 1)
+                </td>
+            </tr>
+                if (shippingRate == null)
+                {
+            <tr>
+                <td colspan="6">
+                    @T("No shipping rate selected")
+                </td>
+            </tr>
+                }
+                else
+                {
+            <tr>
+                <td>
+                    @T("Logo")
+                </td>
+                <td>
+                    @T("Description")
+                </td>
+                <td>
+                    @T("Carrier")
+                </td>
+                <td>
+                    @T("Price")
+                </td>
+                <td>
+                    @T("Taxes")
+                </td>
+                <td>
+                    @T("Price including taxes")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @if (!String.IsNullOrEmpty(shippingRate.LogoUrl))
+                    {
+                        <img src="@shippingRate.LogoUrl" title="@shippingRate.LogoTitle" alt="@shippingRate.LogoAlternateText" />
+                    }
+                </td>
+                <td>
+                    @shippingRate.ShippingRateDescription
+                </td>
+                <td>
+                    @(String.IsNullOrEmpty(shippingRate.CarrierName) ? shippingRate.CarrierCode : shippingRate.CarrierName)
+                </td>
+                <td>
+                    @shippingRate.Price.ToString("C", this.Model.NumberFormat)
+                </td>
+                <td>
+                    @shippingRate.TotalTax.ToString("C", this.Model.NumberFormat)
+                </td>
+                <td>
+                    @shippingRate.PriceTaxIncluded.ToString("C", this.Model.NumberFormat)
+                </td>
+            </tr>
+                }
+                packageCount++;
+            }
+        }
+        else
+        {
+            <tr>
+                <td>
+                    @T("No shipping rate selected")
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

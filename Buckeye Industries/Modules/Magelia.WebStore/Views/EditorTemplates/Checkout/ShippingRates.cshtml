@@ -1,0 +1,99 @@
+﻿<div class="mag-shippingRates">
+    @Html.ValidationSummary()
+    <table>
+        <tbody>
+            @if (Enumerable.Any(this.Model.ShippingRatesByPackage))
+            {
+                Int32 packageCount = 0;
+                foreach (var packageShippingRates in this.Model.ShippingRatesByPackage)
+                {
+                <tr>
+                    <td colspan="7">
+                        @String.Format(this.T("Package #{0}").ToString(), packageCount + 1)
+                        @Html.Hidden(String.Format("ShippingRateValueSelections[{0}].PackageId", packageCount), (Guid)packageShippingRates.Key)
+                    </td>
+                </tr>
+                    if (Enumerable.Any(packageShippingRates.Value))
+                    {
+                <tr>
+                    <td>
+                        @T("Logo")
+                    </td>
+                    <td>
+                        @T("Description")
+                    </td>
+                    <td>
+                        @T("Carrier")
+                    </td>
+                    <td>
+                        @T("Price")
+                    </td>
+                    <td>
+                        @T("Taxes")
+                    </td>
+                    <td>
+                        @T("Price including taxes")
+                    </td>
+                    <td>
+                        @T("Selection")
+                    </td>
+                </tr>
+                        foreach (var shippingRateValue in packageShippingRates.Value)
+                        {
+                <tr>
+                    <td>
+                        @if (!String.IsNullOrEmpty(shippingRateValue.LogoUrl))
+                        {
+                            <img src="@shippingRateValue.LogoUrl" title="@shippingRateValue.LogoTitle" alt="@shippingRateValue.LogoAlternateText" />
+                        }
+                    </td>
+                    <td>
+                        @shippingRateValue.ShippingRateDescription
+                    </td>
+                    <td>
+                        @(String.IsNullOrEmpty(shippingRateValue.CarrierName) ? shippingRateValue.CarrierCode : shippingRateValue.CarrierName)
+                    </td>
+                    <td>
+                        @shippingRateValue.Price.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @shippingRateValue.TotalTax.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @shippingRateValue.PriceTaxIncluded.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @Html.RadioButton(String.Format("ShippingRateValueSelections[{0}].ShippingRateValueId", packageCount), (Guid)shippingRateValue.ShippingRateValueId, (Boolean)(shippingRateValue.ShippingRateValueId == this.Model.ShippingRateValueSelections[packageCount].ShippingRateValueId))
+                    </td>
+                </tr>
+                        }
+                    }
+                    else
+                    {
+                <tr>
+                    <td colspan="7">
+                        @T("No shipping rate available")
+                    </td>
+                </tr>
+                    }
+                    packageCount++;
+                }
+            }
+            else
+            {
+                <tr>
+                    <td>
+                        @T("No shipping rate needed to deliver the content of your basket")
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7">
+                    <button type="button" class="mag-next">@T("Next")</button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

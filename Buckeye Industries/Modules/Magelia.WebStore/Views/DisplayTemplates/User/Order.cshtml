@@ -1,0 +1,267 @@
+﻿@functions{
+    dynamic GetMainImage(dynamic lineItem)
+    {
+        foreach (var productDetail in lineItem.ProductDetail)
+        {
+            if ("mainimage".Equals(productDetail.Code, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return Enumerable.FirstOrDefault(productDetail.Files);
+            }
+        }
+        return null;
+    }
+}
+<div class="mag-order">
+    <table class="order">
+        <tbody>
+            @foreach (var package in this.Model.Order.Packages)
+            { 
+                <tr class="header">
+                    <td colspan="10">
+                        @String.Format(this.T("Package #{0}").ToString(), package.PackageNumber)
+                        @if (!package.Virtual)
+                        { 
+                            <text>-</text>
+                            @String.Format(this.T("Shippped from {0} by {1}").ToString(), String.IsNullOrEmpty(package.WarehouseName) ? package.WarehouseCode : package.WarehouseName, String.IsNullOrEmpty(package.CarrierName) ? package.CarrierCode : package.CarrierName)
+                        }
+                    </td>
+                </tr>
+                <tr class="header">
+                    <td>@T("Image")
+                    </td>
+                    <td>@T("SKU")
+                    </td>
+                    <td>@T("Name")
+                    </td>
+                    <td>@T("Unit price")
+                    </td>
+                    <td>@T("Quantity")
+                    </td>
+                    <td>@T("Price")
+                    </td>
+                    <td>@T("Discount")
+                    </td>
+                    <td>@T("Taxes")
+                    </td>
+                    <td>@T("Total")
+                    </td>
+                    <td>@T("Weight")
+                    </td>
+                </tr>
+                        foreach (var lineItem in package.LineItems)
+                        {
+                <tr>
+                    <td>
+                        @{
+                            var mainImage = this.GetMainImage(lineItem);
+                            if (mainImage != null)
+                            {
+                            <img src="@mainImage.Path" title="@mainImage.Title" alt="@mainImage.AlternateText" />
+                            }
+                        }
+                    </td>
+                    <td>
+                        @lineItem.SKU
+                    </td>
+                    <td>
+                        @lineItem.ProductName
+                    </td>
+                    <td>
+                        @lineItem.UnitPrice.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @lineItem.Quantity
+                    </td>
+                    <td>
+                        @lineItem.LineItemPrice.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @lineItem.LineItemDiscount.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @lineItem.LineItemTaxesConsideringUnitDiscount.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @lineItem.TotalIncludingDiscountAndTaxesConsideringUnitDiscount.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @lineItem.TotalWeight.ToString("F2") @Model.Order.WeightUnit
+                    </td>
+                </tr>
+                        }
+                <tr>
+                    <td colspan="5" class="summary">
+                        @T("Line items")
+                    </td>
+                    <td>
+                        @package.LineItemsTotal.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @package.LineItemsDiscount.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @package.LineItemsTaxesConsideringUnitDiscount.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @package.LineItemsTotalIncludingDiscountAndTaxes.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @package.Weight.ToString("F2") @Model.Order.WeightUnit
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="summary">
+                        @(package.Virtual ? this.T("No shipping").ToString() : String.IsNullOrEmpty(package.ShippingRateDescription) ? package.ShippingRateCode : package.ShippingRateDescription)
+                    </td>
+                    <td>
+                        @package.ShippingRateValue.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @package.ShippingDiscount.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @package.ShippingTaxesConsideringShippingDiscount.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @package.ShippingRateValueIncludingDiscountAndTaxes.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        -
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="address">
+        <h3>
+            @T("Billing address")
+        </h3>
+        <div>
+            @Display(this.New.DisplayTemplate(TemplateName: "User/OrderAddress", Model: this.Model.BillingAddress))
+            @if (!this.Model.Order.SeparateBilling)
+            { 
+                <p>
+                    <input type="checkbox" checked="checked" disabled="disabled" />@T("Shipping address is the same")
+                </p>
+            }
+        </div>
+    </div>
+    @if (this.Model.Order.SeparateBilling)
+    { 
+        <div class="address">
+            <h3>
+                @T("Shipping address")
+            </h3>
+            <div>
+                @Display(this.New.DisplayTemplate(TemplateName: "User/OrderAddress", Model: this.Model.ShippingAddress))
+            </div>
+        </div>    
+    }
+    <table class="summary">
+        <tbody>
+            <tr>
+                <td>@T("Order number")
+                </td>
+                <td>@Model.Order.OrderNumber
+                </td>
+            </tr>
+            <tr>
+                <td>@T("Status")
+                </td>
+                <td>@T(this.Model.Order.Status.ToString())
+                </td>
+            </tr>
+            <tr>
+                <td>@T("Creation date")
+                </td>
+                <td>@TimeZoneInfo.ConvertTime(this.Model.Order.CreationDate, this.WorkContext.CurrentTimeZone).ToString("G")
+                </td>
+            </tr>
+            <tr>
+                <td>@T("Line items price")
+                </td>
+                <td>@Model.Order.LineItemsTotal.ToString("C", this.Model.NumberFormat)
+                </td>
+            </tr>
+            <tr>
+                <td>@T("Line items discount")
+                </td>
+                <td>@Model.Order.LineItemsDiscount.ToString("C", this.Model.NumberFormat)
+                </td>
+            </tr>
+            <tr>
+                <td>@T("Line items taxes")
+                </td>
+                <td>@Model.Order.LineItemsTaxesConsideringUnitDiscount.ToString("C", this.Model.NumberFormat)
+                </td>
+            </tr>
+            <tr>
+                <td>@T("Line items total")
+                </td>
+                <td>@Model.Order.LineItemsTotalIncludingDiscountAndTaxes.ToString("C", this.Model.NumberFormat)
+                </td>
+            </tr>
+            <tr>
+                <td>@T("Shipping price")
+                </td>
+                <td>@Model.Order.ShippingTotal.ToString("C", this.Model.NumberFormat)
+                </td>
+            </tr>
+            <tr>
+                <td>@T("Shipping discount")
+                </td>
+                <td>@Model.Order.ShippingDiscount.ToString("C", this.Model.NumberFormat)
+                </td>
+            </tr>
+            <tr>
+                <td>@T("Shipping taxes")
+                </td>
+                <td>@Model.Order.ShippingTaxesConsideringShippingDiscount.ToString("C", this.Model.NumberFormat)
+                </td>
+            </tr>
+            <tr>
+                <td>@T("Shipping total")
+                </td>
+                <td>@Model.Order.ShippingTotalIncludingDiscountAndTaxes.ToString("C", this.Model.NumberFormat)
+                </td>
+            </tr>
+            <tr>
+                <td>@T("Weight")
+                </td>
+                <td>@Model.Order.Weight.ToString("F2") @Model.Order.WeightUnit
+                </td>
+            </tr>
+            <tr>
+                <td>@T("Order price")
+                </td>
+                <td>@Model.Order.OrderTotal.ToString("C", this.Model.NumberFormat)
+                </td>
+            </tr>
+            <tr>
+                <td>@T("Order discount")
+                </td>
+                <td>@Model.Order.OrderDiscount.ToString("C", this.Model.NumberFormat)
+                </td>
+            </tr>
+            <tr>
+                <td>@T("Order taxes")
+                </td>
+                <td>@((this.Model.Order.OrderTotalIncludingTotalDiscountAndTaxes - this.Model.Order.OrderTotalIncludingDiscount).ToString("C", this.Model.NumberFormat))
+                </td>
+            </tr>
+            <tr>
+                <td>@T("Order total")
+                </td>
+                <td>@Model.Order.OrderTotalIncludingTotalDiscountAndTaxes.ToString("C", this.Model.NumberFormat)
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">
+                    @Html.ActionLink(this.T("Back to orders").ToString(), "GetOrders", new { controller = "User", area = "Magelia.WebStore", userOrdersPartId = this.Model.UserOrdersPartId })
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

@@ -1,0 +1,21 @@
+﻿@{
+    this.Style.Require("Magelia");
+    this.Script.Require("Magelia.AddToBasket");
+}
+<div class="mag-addToBasket"
+     data-config='
+         {
+            "addToBasketUrl":"@Url.Action("AddToBasket", new { controller = "Basket", area = "Magelia.WebStore" })",
+            "quantityFieldSelector":"input[name=quantity]",
+            "addToBasketTriggerSelector":"button",
+            "successMessage":"@T("Product successfuly added to cart, added quantity : {addedQuantity}, total quantity : {totalQuantity}")",
+            "partialMessage":"@T("Product partialy added to cart, added quantity : {addedQuantity}, total quantity : {totalQuantity}")",
+            "unavailableMessage": "@T("Product is no more available, please try again later")",
+            "errorMessage":"@T("An unexpected error has occured, please try again later")"
+         }
+     '
+>
+    @Html.Hidden("productId", (Guid)this.Model.ProductId)
+    @Html.TextBox("quantity", 1, new { @class = "text-box" })
+    <button type="button">@T("Add to cart")</button>
+</div>

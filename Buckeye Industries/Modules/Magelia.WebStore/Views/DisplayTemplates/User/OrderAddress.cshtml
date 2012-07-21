@@ -1,0 +1,89 @@
+﻿@{
+    Boolean hasFloor = !String.IsNullOrEmpty(this.Model.Floor);
+    Boolean hasDigiCode = !String.IsNullOrEmpty(this.Model.DigiCode);
+    Boolean hasPhoneNumber = !String.IsNullOrEmpty(this.Model.PhoneNumber);
+    Boolean hasMobileNumber = !String.IsNullOrEmpty(this.Model.MobileNumber);
+    Boolean hasFaxNumber = !String.IsNullOrEmpty(this.Model.FaxNumber);             
+}
+@if (!String.IsNullOrEmpty(this.Model.Name))
+{ 
+    <p>
+        <strong>@T("Address name :")</strong>&nbsp;@Model.Name
+    </p>
+}
+@if (!String.IsNullOrEmpty(this.Model.Email))
+{ 
+    <p>@T("Email :")&nbsp;@Model.Email</p>
+}
+<p>
+    @Model.FirstName @Model.MiddleName @Model.LastName
+    @if (!String.IsNullOrEmpty(this.Model.Company))
+    { 
+        <text>,</text> @T("Company :")<text>&nbsp;</text>@Model.Company
+    }
+</p>
+<p>
+    @Model.Line1
+</p>
+@if (!String.IsNullOrEmpty(this.Model.Line2))
+{ 
+    <p>
+        @Model.Line2
+    </p>
+}
+@if (!String.IsNullOrEmpty(this.Model.Line3))
+{ 
+    <p>
+        @Model.Line3
+    </p>
+}
+@if (hasFloor || hasDigiCode)
+{ 
+    <p>
+        @if (hasFloor)
+        { 
+            @T("Floor :") @Model.Floor
+            if (hasDigiCode)
+            { 
+            <text>,</text>
+            }
+        }
+        @if (hasDigiCode)
+        { 
+            @T("Digicode :")<text>&nbsp;</text>@Model.DigiCode
+        }
+    </p>
+}
+<p>
+    @Model.City @Model.ZipCode
+</p>
+<p>
+    @Model.CountryName
+    @if (!String.IsNullOrEmpty(this.Model.RegionName))
+    { 
+        <text>,&nbsp;</text>@Model.RegionName
+    }
+</p>
+@if (hasPhoneNumber || hasMobileNumber || hasFaxNumber)
+{
+    if (hasPhoneNumber)
+    { 
+    @T("Phone number :")<text>&nbsp;</text>@Model.PhoneNumber
+        if (hasMobileNumber || hasFaxNumber)
+        { 
+    <text>,&nbsp;</text>
+        }
+    }
+    if (hasMobileNumber)
+    { 
+    @T("Mobile number :")<text>&nbsp;</text>@Model.MobileNumber
+        if (hasFaxNumber)
+        { 
+    <text>,&nbsp;</text>
+        }
+    }
+    if (hasFaxNumber)
+    { 
+    @T("Fax number :")<text>&nbsp;</text>@Model.FaxNumber
+    }
+}

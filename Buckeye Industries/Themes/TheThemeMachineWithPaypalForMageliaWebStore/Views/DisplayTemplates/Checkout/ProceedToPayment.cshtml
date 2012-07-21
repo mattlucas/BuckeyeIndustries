@@ -1,0 +1,30 @@
+﻿@functions{
+    String GetCurrencyCode()
+    {
+        String currencyCode;
+        switch ((Int32)this.Model.Order.CurrencyId)
+        {
+            case 978:
+                currencyCode = "EUR";
+                break;
+            default:
+                currencyCode = "USD";
+                break;
+
+        }
+        return currencyCode;
+    }
+}
+<form method="post" action="https://www.sandbox.paypal.com/cgi-bin/webscr" class="mag-proceedToPayment">
+@Html.Hidden("cmd", "_xclick")
+@Html.Hidden("no_shipping", 1)
+@Html.Hidden("currency_code", this.GetCurrencyCode())
+@Html.Hidden("business", "your_paypal_address@xxxxx.xxx")
+@Html.Hidden("item_name", String.Format("Order #{0}", (Int32)this.Model.Order.OrderNumber))
+@Html.Hidden("return", String.Concat(this.Request.Url.GetLeftPart(UriPartial.Authority), this.Url.Content("~/")))
+@Html.Hidden("cancel_return", String.Concat(this.Request.Url.GetLeftPart(UriPartial.Authority), this.Url.Content("~/")))
+@Html.Hidden("amount", this.Model.Order.OrderTotalIncludingTotalDiscountAndTaxes.ToString("F2", System.Globalization.CultureInfo.InvariantCulture) as String)
+<p>
+    @T("Redirecting on Paypal ...")
+</p>
+</form>

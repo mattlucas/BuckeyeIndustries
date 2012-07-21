@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5576998A-00B5-42CE-8D5C-4B390F8C9435}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Magelia.WebStore</RootNamespace>
+    <AssemblyName>Magelia.WebStore</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <UseIISExpress>false</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Magelia.WebStore.Client, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\magelia\Magelia.WebStore.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\magelia\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\magelia\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\magelia\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Spatial, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\magelia\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\aspnetmvc\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\Libraries\Magelia\Magelia.Address.js" />
+    <Content Include="Scripts\Libraries\Magelia\Magelia.AddressesManager.js" />
+    <Content Include="Scripts\Libraries\Magelia\Magelia.AddToBasket.js" />
+    <Content Include="Scripts\Libraries\Magelia\Magelia.Basket.js" />
+    <Content Include="Scripts\Libraries\Magelia\Magelia.BasketCount.js" />
+    <Content Include="Scripts\Libraries\Magelia\Magelia.Checkout.js" />
+    <Content Include="Scripts\Libraries\Magelia\Magelia.CurrencyPicker.js" />
+    <Content Include="Scripts\Libraries\Magelia\Magelia.LocationPicker.js" />
+    <Content Include="Scripts\Libraries\Magelia\Magelia.Order.js" />
+    <Content Include="Scripts\Libraries\Magelia\Magelia.Payment.js" />
+    <Content Include="Scripts\Libraries\Magelia\Magelia.ShippingRates.js" />
+    <Content Include="Scripts\Libraries\Magelia\Magelia.Orders.js" />
+    <Content Include="Scripts\Libraries\Magelia\Magelia.VariantPicker.js" />
+    <Content Include="Styles\Images\arrows.png" />
+    <Content Include="Styles\Magelia.css" />
+    <Content Include="Web.config" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Scripts\Web.config" />
+    <Content Include="Styles\Web.config" />
+    <Content Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Module.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Orchard\Orchard.Framework.csproj">
+      <Project>{2D1D92BB-4555-4CBE-8D0E-63563D6CE4C6}</Project>
+      <Name>Orchard.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Orchard.Core.csproj">
+      <Project>{9916839C-39FC-4CEB-A5AF-89CA7E87119F}</Project>
+      <Name>Orchard.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Users\Orchard.Users.csproj">
+      <Project>{79AED36E-ABD0-4747-93D3-8722B042454B}</Project>
+      <Name>Orchard.Users</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Widgets\Orchard.Widgets.csproj">
+      <Project>{194D3CCC-1153-474D-8176-FDE8D7D0D0BD}</Project>
+      <Name>Orchard.Widgets</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="Contracts\ICatalogHierarchyServices.cs" />
+    <Compile Include="Contracts\IProductListServices.cs" />
+    <Compile Include="Contracts\IProductServices.cs" />
+    <Compile Include="Contracts\IUserOrdersServices.cs" />
+    <Compile Include="Contracts\IWebStoreServices.cs" />
+    <Compile Include="Contracts\IUserModelsStateServices.cs" />
+    <Compile Include="Controllers\BasketController.cs" />
+    <Compile Include="Controllers\CheckoutController.cs" />
+    <Compile Include="Controllers\ContextController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WebStoreSettingsController.cs" />
+    <Compile Include="Drivers\BasketCountPartDriver.cs" />
+    <Compile Include="Drivers\BasketPartDriver.cs" />
+    <Compile Include="Drivers\CatalogHierarchyPartDriver.cs" />
+    <Compile Include="Drivers\CheckoutPartDriver.cs" />
+    <Compile Include="Drivers\UserOrdersPartDriver.cs" />
+    <Compile Include="Drivers\CurrencyPickerPartDriver.cs" />
+    <Compile Include="Drivers\LocationPickerPartDriver.cs" />
+    <Compile Include="Drivers\ProductListPartDriver.cs" />
+    <Compile Include="Drivers\ProductPartDriver.cs" />
+    <Compile Include="Drivers\UserAddressesPartDriver.cs" />
+    <Compile Include="Drivers\SettingsPartDriver.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\UriExtensions.cs" />
+    <Compile Include="Extensions\Web\MVC\HTMLExtensions.cs" />
+    <Compile Include="Extensions\Web\MVC\UrlExtensions.cs" />
+    <Compile Include="Handlers\BasketCountPartHandler.cs" />
+    <Compile Include="Handlers\BasketPartHandler.cs" />
+    <Compile Include="Handlers\CatalogHierarchyPartHandler.cs" />
+    <Compile Include="Handlers\CheckoutPartHandler.cs" />
+    <Compile Include="Handlers\UserOrdersPartHandler.cs" />
+    <Compile Include="Handlers\CurrencyPickerPartHandler.cs" />
+    <Compile Include="Handlers\LocationPickerPartHandler.cs" />
+    <Compile Include="Handlers\ProductListPartHandler.cs" />
+    <Compile Include="Handlers\ProductPartHandler.cs" />
+    <Compile Include="Handlers\UserAddressPartHandler.cs" />
+    <Compile Include="Handlers\UserEventHandler.cs" />
+    <Compile Include="Handlers\UserHandler.cs" />
+    <Compile Include="Handlers\UserSynchronizationHandler.cs" />
+    <Compile Include="Handlers\SettingsPartHandler.cs" />
+    <Compile Include="Migrations\BasketCountPartMigration.cs" />
+    <Compile Include="Migrations\BasketPartMigration.cs" />
+    <Compile Include="Migrations\CatalogHierarchyPartMigration.cs" />
+    <Compile Include="Migrations\CheckoutPartMigration.cs" />
+    <Compile Include="Migrations\CurrencyPickerPartMigration.cs" />
+    <Compile Include="Migrations\ProductListPartMigration.cs" />
+    <Compile Include="Migrations\ProductPartMigration.cs" />
+    <Compile Include="Migrations\UserAddressesPartMigration.cs" />
+    <Compile Include="Migrations\SettingsPartMigration.cs" />
+    <Compile Include="Migrations\UserOrdersPartMigration.cs" />
+    <Compile Include="Models\Parts\BasketCountPart.cs" />
+    <Compile Include="Models\Parts\BasketPart.cs" />
+    <Compile Include="Models\Parts\CatalogHierarchyPart.cs" />
+    <Compile Include="Models\Parts\CheckoutPart.cs" />
+    <Compile Include="Models\Parts\CurrencyPickerPart.cs" />
+    <Compile Include="Models\Parts\LocationPickerPart.cs" />
+    <Compile Include="Models\Parts\ProductListPart.cs" />
+    <Compile Include="Models\Parts\ProductPart.cs" />
+    <Compile Include="Models\Parts\UserOrdersPart.cs" />
+    <Compile Include="Models\Records\BasketCountPartRecord.cs" />
+    <Compile Include="Models\Records\BasketPartRecord.cs" />
+    <Compile Include="Models\Records\CatalogHierarchyPartRecord.cs" />
+    <Compile Include="Models\Records\CheckoutPartRecord.cs" />
+    <Compile Include="Models\Records\CurrencyPickerPartRecord.cs" />
+    <Compile Include="Models\Records\LocationPickerPartRecord.cs" />
+    <Compile Include="Models\Records\ProductListPartRecord.cs" />
+    <Compile Include="Models\Records\ProductPartRecord.cs" />
+    <Compile Include="Models\Records\UserAddressesPartRecord.cs" />
+    <Compile Include="Models\Records\SettingsPartRecord.cs" />
+    <Compile Include="Models\Parts\UserAddressesPart.cs" />
+    <Compile Include="Models\Parts\SettingsPart.cs" />
+    <Compile Include="Models\ViewModels\Checkout\AddressRecapViewModel.cs" />
+    <Compile Include="Models\ViewModels\Basket\BasketCountViewModel.cs" />
+    <Compile Include="Models\ViewModels\Basket\BasketViewModel.cs" />
+    <Compile Include="Models\ViewModels\CatalogHierarchy\CatalogItemViewModel.cs" />
+    <Compile Include="Models\ViewModels\CatalogHierarchy\CategoryItemViewModel.cs" />
+    <Compile Include="Models\ViewModels\CatalogHierarchy\HierarchyItemViewModel.cs" />
+    <Compile Include="Models\ViewModels\CatalogHierarchy\HierarchyViewModel.cs" />
+    <Compile Include="Models\ViewModels\Checkout\PaymentViewModel.cs" />
+    <Compile Include="Models\ViewModels\Checkout\ProceedToPaymentViewModel.cs" />
+    <Compile Include="Models\ViewModels\Checkout\ShippingRatesRecapViewModel.cs" />
+    <Compile Include="Models\ViewModels\Checkout\ShippingRatesViewModel.cs" />
+    <Compile Include="Models\ViewModels\ProductList\ProductListEditViewModel.cs" />
+    <Compile Include="Models\ViewModels\ProductList\ProductListViewModel.cs" />
+    <Compile Include="Models\ViewModels\Product\ProductViewModel.cs" />
+    <Compile Include="Models\ViewModels\User\AddressesManagerViewModel.cs" />
+    <Compile Include="Models\ViewModels\User\AddressViewModel.cs" />
+    <Compile Include="Models\ViewModels\User\OrderAddressViewModel.cs" />
+    <Compile Include="Models\ViewModels\User\OrdersViewModel.cs" />
+    <Compile Include="Models\ViewModels\User\OrderViewModel.cs" />
+    <Compile Include="ResourceManifest.cs" />
+    <Compile Include="Services\CatalogHierarchyServices.cs" />
+    <Compile Include="Services\ProductListServices.cs" />
+    <Compile Include="Services\ProductServices.cs" />
+    <Compile Include="Services\UserOrdersServices.cs" />
+    <Compile Include="Services\WebStoreServices.cs" />
+    <Compile Include="Services\UserModelsStateServices.cs" />
+    <Content Include="Views\EditorTemplates\User\AddressesManager.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Migrations\LocationPickerPartMigration.cs" />
+    <Compile Include="Models\Records\UserOrdersPartRecord.cs" />
+    <None Include="Placement.info" />
+    <Content Include="Views\EditorTemplates\Parts\Settings.cshtml" />
+    <Content Include="Views\Parts\UserAddresses.cshtml" />
+    <Content Include="Views\Unauhtorized.cshtml" />
+    <Content Include="Views\EditorTemplates\User\Address.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\CatalogHierarchy.cshtml" />
+    <Content Include="Views\Parts\CatalogHierarchy.cshtml" />
+    <Content Include="Views\CatalogItem.cshtml" />
+    <Content Include="Views\CategoryItem.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\CurrencyPicker.cshtml" />
+    <Content Include="Views\Parts\CurrencyPicker.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\LocationPicker.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\ProductList.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\UserAddresses.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\Product.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\BasketCount.cshtml" />
+    <Content Include="Views\Parts\BasketCount.cshtml" />
+    <Content Include="Views\DisplayTemplates\Basket\BasketCount.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\Basket.cshtml" />
+    <Content Include="Views\Parts\Basket.cshtml" />
+    <Content Include="Views\EditorTemplates\Basket\Basket.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\Checkout.cshtml" />
+    <Content Include="Views\Parts\Checkout.cshtml" />
+    <Content Include="Views\DisplayTemplates\Checkout\AddressRecap.cshtml" />
+    <Content Include="Views\EditorTemplates\Checkout\ShippingRates.cshtml" />
+    <Content Include="Views\DisplayTemplates\Checkout\ShippingRatesRecap.cshtml" />
+    <Content Include="Views\EditorTemplates\Checkout\Payment.cshtml" />
+    <Content Include="Views\DisplayTemplates\Checkout\ProceedToPayment.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\UserOrders.cshtml" />
+    <Content Include="Views\DisplayTemplates\User\Order.cshtml" />
+    <Content Include="Views\Context\Magelia.cshtml" />
+    <Content Include="Views\DisplayTemplates\User\OrderAddress.cshtml" />
+    <None Include="Views\Parts\LocationPicker.cshtml" />
+    <Content Include="Views\Parts\ProductList.cshtml" />
+    <Content Include="Views\Parts\Product.cshtml" />
+    <Content Include="Views\AddToBasket.cshtml" />
+    <Content Include="Views\Parts\UserOrders.cshtml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target> -->
+  <Target Name="AfterBuild" DependsOnTargets="AfterBuildCompiler">
+    <PropertyGroup>
+      <AreasManifestDir>$(ProjectDir)\..\Manifests</AreasManifestDir>
+    </PropertyGroup>
+    <!-- If this is an area child project, uncomment the following line:
+    <CreateAreaManifest AreaName="$(AssemblyName)" AreaType="Child" AreaPath="$(ProjectDir)" ManifestPath="$(AreasManifestDir)" ContentFiles="@(Content)" />
+    -->
+    <!-- If this is an area parent project, uncomment the following lines:
+    <CreateAreaManifest AreaName="$(AssemblyName)" AreaType="Parent" AreaPath="$(ProjectDir)" ManifestPath="$(AreasManifestDir)" ContentFiles="@(Content)" />
+    <CopyAreaManifests ManifestPath="$(AreasManifestDir)" CrossCopy="false" RenameViews="true" />
+    -->
+  </Target>
+  <Target Name="AfterBuildCompiler" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(ProjectDir)\..\$(ProjectName)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>45979</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://orchard.codeplex.com</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

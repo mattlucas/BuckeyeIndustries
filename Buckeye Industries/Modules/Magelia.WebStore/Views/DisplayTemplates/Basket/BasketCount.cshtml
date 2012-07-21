@@ -1,0 +1,15 @@
+﻿@{
+    Boolean hasProducts = this.Model.Count > 0;
+    Boolean hasBasketUrl = !String.IsNullOrEmpty(this.Model.BasketUrl);
+    String text = hasProducts ? String.Format(this.T("Basket({0})").ToString(), this.Model.Count) : this.T("Basket").ToString();
+}
+<p>
+    @if (hasBasketUrl)
+    {
+        @Html.Link(text, this.Url.Content(this.Model.BasketUrl as String))
+    }
+    else if (hasProducts)
+    { 
+        @text  
+    }
+</p>

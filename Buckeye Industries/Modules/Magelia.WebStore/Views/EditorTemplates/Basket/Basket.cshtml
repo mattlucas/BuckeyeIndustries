@@ -1,0 +1,360 @@
+﻿@functions{
+    IEnumerable<String> GetPromoCodes()
+    {
+        List<String> promoCodes = new List<String>();
+        foreach (var discountUse in this.Model.Basket.DiscountUses)
+        {
+            foreach (var additionalData in discountUse.AdditionalData)
+            {
+                if ("promocode".Equals(additionalData.Code, StringComparison.InvariantCultureIgnoreCase) && !String.IsNullOrEmpty(additionalData.Value) && !promoCodes.Contains(additionalData.Value as String, StringComparer.InvariantCultureIgnoreCase))
+                {
+                    promoCodes.Add(additionalData.Value);
+                }
+            }
+        }
+        return promoCodes;
+    }
+
+    dynamic GetMainImage(dynamic lineItem)
+    {
+        foreach (var productDetail in lineItem.ProductDetail)
+        {
+            if ("mainimage".Equals(productDetail.Code, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return Enumerable.FirstOrDefault(productDetail.Files);
+            }
+        }
+        return null;
+    }
+}
+@if (this.Model.Basket == null)
+{
+    <p class="mag-empty">
+        @T("Basket is emtpy")
+    </p>
+}
+else
+{
+    Boolean editable = !this.Model.ReadOnly;
+    Boolean hasMessage = !String.IsNullOrEmpty(this.Model.Message);
+    Boolean hasCheckoutUrl = !String.IsNullOrEmpty(this.Model.CheckoutUrl);
+    IEnumerable<String> promoCodes = this.GetPromoCodes();
+    Boolean hasPromoCodes = promoCodes.Any();
+    <table>
+        <thead>
+            <tr>
+                <th>@T("Image")
+                </th>
+                <th>@T("SKU")
+                </th>
+                <th>@T("Name")
+                </th>
+                <th>@T("Unit price")
+                </th>
+                <th>@T("Quantity")
+                </th>
+                <th>@T("Price")
+                </th>
+                <th>@T("Discount")
+                </th>
+                <th>@T("Taxes")
+                </th>
+                <th>@T("Total")
+                </th>
+                <th>@T("Weight")
+                </th>
+                @if (editable)
+                { 
+                    <th>@T("Remove")
+                    </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                Int32 packageCount = 0;    
+            }
+            @foreach (var package in this.Model.Basket.Packages)
+            {
+                packageCount++;
+                <tr>
+                    <td colspan="@(10 + (editable ? 1 : 0))">
+                        @String.Format(this.T("Package #{0}").ToString(), packageCount)
+                        @if (!String.IsNullOrEmpty(package.WarehouseCode))
+                        { 
+                            <text>-</text>
+                            @String.Format(this.T("Shippable from {0}").ToString(), String.IsNullOrEmpty(package.WarehouseName) ? package.WarehouseCode : package.WarehouseName)
+                        }
+                        @if (!String.IsNullOrEmpty(package.CarrierCode))
+                        { 
+                            <text>-</text>
+                            @String.Format(this.T("Devilerable by {0}").ToString(), String.IsNullOrEmpty(package.CarrierName) ? package.CarrierCode : package.CarrierName)
+                        }
+                    </td>
+                </tr>
+                        foreach (var lineItem in package.LineItems)
+                        { 
+                <tr>
+                    <td>
+                        @{
+                            var mainImage = this.GetMainImage(lineItem);
+                            if (mainImage != null)
+                            {
+                            <img src="@mainImage.Path" title="@mainImage.Title" alt="@mainImage.AlternateText" />
+                            }
+                        }
+                    </td>
+                    <td>
+                        @lineItem.SKU
+                    </td>
+                    <td>
+                        @lineItem.ProductName
+                    </td>
+                    <td>
+                        @lineItem.UnitPrice.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @if (editable)
+                        {
+                            @Html.Hidden("productId", (Guid)lineItem.ProductId)
+                            @Html.Hidden("packageId", (Guid)lineItem.PackageId)
+                            @Html.TextBox("quantity", (Int32)lineItem.Quantity, new { @class = "text-box" })
+                        }
+                        else
+                        {
+                            @lineItem.Quantity
+                        }
+                    </td>
+                    <td>
+                        @lineItem.LineItemPrice.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @lineItem.LineItemDiscount.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @lineItem.LineItemTaxes.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @lineItem.TotalIncludingDiscountAndTaxesConsideringUnitDiscount.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @lineItem.TotalWeight.ToString("F2") @Model.Basket.WeightUnit
+                    </td>
+                    @if (editable)
+                    {
+                        <td>
+                            <button class="mag-removeProduct" type="button">
+                                @("X")</button>
+                        </td>
+                    }
+                </tr>
+                        }
+                <tr>
+                    <td colspan="5" class="mag-total">
+                        @T("Line items")
+                    </td>
+                    <td>
+                        @package.LineItemsTotal.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @package.LineItemsDiscount.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @package.LineItemsTaxes.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @package.LineItemsTotalIncludingDiscountAndTaxes.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @package.Weight.ToString("F2") @Model.Basket.WeightUnit
+                    </td>
+                    @if (editable)
+                    {
+                        <td>
+                            -
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td colspan="5" class="mag-total">
+                        @(package.Virtual ? this.T("No shipping").ToString() : String.IsNullOrEmpty(package.ShippingRateDescription) ? package.ShippingRateCode : package.ShippingRateDescription)
+                    </td>
+                    <td>
+                        @package.ShippingRateValue.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @package.ShippingDiscount.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @package.ShippingTaxesConsideringShippingDiscount.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        @package.ShippingRateValueIncludingDiscountAndTaxes.ToString("C", this.Model.NumberFormat)
+                    </td>
+                    <td>
+                        -
+                    </td>
+                    @if (editable)
+                    {
+                        <td>
+                            -
+                        </td>
+                    }
+                </tr>
+            }
+            <tr>
+                <td colspan="@(10 + (editable ? 1 : 0))">
+                    @T("Summary")
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5" class="mag-total">
+                    @T("Line items")
+                </td>
+                <td>
+                    @Model.Basket.LineItemsTotal.ToString("C", this.Model.NumberFormat)
+                </td>
+                <td>
+                    @Model.Basket.LineItemsDiscount.ToString("C", this.Model.NumberFormat)
+                </td>
+                <td>
+                    @Model.Basket.LineItemsTaxesConsideringUnitDiscount.ToString("C", this.Model.NumberFormat)
+                </td>
+                <td>
+                    @Model.Basket.LineItemsTotalIncludingDiscountAndTaxes.ToString("C", this.Model.NumberFormat)
+                </td>
+                <td>
+                    @Model.Basket.Weight.ToString("F2") @Model.Basket.WeightUnit
+                </td>
+                @if (editable)
+                {
+                    <td>
+                        -
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td colspan="5" class="mag-total">
+                    @T("Shipping")
+                </td>
+                <td>
+                    @Model.Basket.ShippingTotal.ToString("C", this.Model.NumberFormat)
+                </td>
+                <td>
+                    @Model.Basket.ShippingDiscount.ToString("C", this.Model.NumberFormat)
+                </td>
+                <td>
+                    @Model.Basket.ShippingTaxesConsideringShippingDiscount.ToString("C", this.Model.NumberFormat)
+                </td>
+                <td>
+                    @Model.Basket.ShippingTotalIncludingDiscountAndTaxes.ToString("C", this.Model.NumberFormat)
+                </td>
+                <td>
+                    -
+                </td>
+                @if (editable)
+                {
+                    <td>
+                        -
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td colspan="5" class="mag-total">
+                    @T("Total")
+                </td>
+                <td>
+                    @Model.Basket.OrderTotal.ToString("C", this.Model.NumberFormat)
+                </td>
+                <td>
+                    @Model.Basket.OrderDiscount.ToString("C", this.Model.NumberFormat)
+                </td>
+                <td>
+                    @((this.Model.Basket.OrderTotalIncludingTotalDiscountAndTaxes - this.Model.Basket.OrderTotalIncludingDiscount).ToString("C", this.Model.NumberFormat))
+                </td>
+                <td>
+                    @Model.Basket.OrderTotalIncludingTotalDiscountAndTaxes.ToString("C", this.Model.NumberFormat)
+                </td>
+                <td>
+                    -
+                </td>
+                @if (editable)
+                {
+                    <td>
+                        -
+                    </td>
+                }
+            </tr>
+        </tbody>
+        @if (editable || hasCheckoutUrl || hasMessage || hasPromoCodes)
+        {
+            <tfoot>
+                <tr class="mag-options">
+                    <td colspan="@(10 + (editable ? 1 : 0))">
+                        @T("Options")
+                    </td>
+                </tr>
+                @if (hasMessage)
+                { 
+                    <tr class="mag-message">
+                        <td colspan="@(10 + (editable ? 1 : 0))">
+                            @Model.Message
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="@(7 + (hasCheckoutUrl ? 0 : 1) + (editable ? 1 : 2))">
+                        <ul>
+                            @if (hasPromoCodes)
+                            { 
+                            
+                                <li>
+                                    @T("Promo code(s) :")
+                                </li>
+                                foreach (var promoCode in promoCodes)
+                                {
+                                <li>
+                                    @if (editable)
+                                    {
+                                        
+                                        @promoCode
+                                        @Html.Hidden("promoCode", promoCode)
+                                        <button class="mag-removePromoCode" type="button">
+                                            X</button>
+                                    }
+                                    else
+                                    {
+                                        @promoCode
+                                    }
+                                </li>
+                                }
+                            }
+                            @if (editable)
+                            {
+                                <li>
+                                    @Html.TextBox("promoCode", this.Model.CurrentPromoCode as String, new { @class = "text-box" })
+                                    <button class="mag-addPromoCode" type="button">@T("Add promo code")</button>
+                                </li>
+                            }
+                        </ul>
+                    </td>
+                    @if (editable)
+                    { 
+                        <td>
+                            @Html.Link(this.T("Clear basket").ToString(), "javascript:void(0);", new { @class = "mag-clearBasket" })
+                        </td>
+                        <td>
+                            @Html.Link(this.T("Update basket").ToString(), "javascript:void(0);", new { @class = "mag-updateBasket" })
+                        </td>
+                    }
+                    @if (hasCheckoutUrl)
+                    {
+                        <td>
+                            @Html.Link(this.T("Checkout").ToString(), this.Url.Content(this.Model.CheckoutUrl as String))
+                        </td>
+                    }
+                </tr>
+            </tfoot>
+        }
+    </table>
+}

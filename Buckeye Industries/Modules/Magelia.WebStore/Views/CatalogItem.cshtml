@@ -1,0 +1,39 @@
+﻿@{
+    String itemUrl;
+    String itemCssClass = "item ";
+    Boolean selected = false;
+    if (this.Model.GenerateUrls)
+    {
+        itemUrl = this.Url.Content(this.Model.Tools.GenerateUrl(this.Model.Item));
+        selected = new System.Text.RegularExpressions.Regex(String.Format(@".*{0}[?/]{{0,1}}.*", itemUrl)).IsMatch(this.Request.Url.ToString());
+    }
+    else
+    {
+        selected = this.Model.Item.Selected;
+        itemUrl = this.Model.Item.Selected ? "javascript:void(0);" : this.Model.Tools.GetSelectUrl(this.Model.Item.Catalog.Code);
+    }
+    if (selected)
+    {
+        itemCssClass = String.Concat(itemCssClass, "selected");
+    }
+    String expanderCssClass = String.Format("expander {0}", this.Model.Item.Expanded ? this.Model.Item.Categories.Count > 0 ? "expanded" : "empty" : null);
+    String expandUrl = this.Model.Tools.GetExpandUrl(this.Model.Item.Expanded, this.Model.Item.Catalog.Code);
+}
+<div>
+    <a class="@expanderCssClass" href="@expandUrl">
+        @T(this.Model.Item.Expanded ? "Collapse" : "Expand")
+    </a><a class="@itemCssClass" href="@itemUrl">
+        @(String.IsNullOrEmpty(Model.Item.Catalog.Name) ? Model.Item.Catalog.Code : Model.Item.Catalog.Name)
+    </a>
+</div>
+@if (this.Model.Item.Categories.Count > 0)
+{ 
+    <ul>
+        @foreach (var category in this.Model.Item.Categories)
+        { 
+            <li>
+                @Display(this.New.CategoryItem(CatalogHierarchyPartId: this.Model.CatalogHierarchyPartId, Item: category, Path: this.Model.Item.Catalog.Code, PathSeparator: this.Model.PathSeparator, Tools: this.Model.Tools, GenerateUrls: this.Model.GenerateUrls))
+            </li>
+        }
+    </ul>
+}

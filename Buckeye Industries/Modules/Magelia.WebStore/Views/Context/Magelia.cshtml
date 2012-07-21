@@ -1,0 +1,71 @@
+﻿var Magelia = {
+    antiForgeryToken : $('@Html.AntiForgeryTokenOrchard()'),
+
+    intializeComponents: function () {
+        for (var attr in Magelia) {
+            var element = Magelia[attr];
+            if ($.isFunction(element) && !$.isEmptyObject(element.prototype)) {
+                var camelCased = attr.substr(0, 1).toLowerCase() + attr.substr(1);
+                $('.mag-' + camelCased).each(
+                    function () {
+                        var config = null;
+                        var container = $(this);
+                        if (!container.data('initialized')) {
+                            try {
+                                var rawConfig = container.data('config');
+                                config = $.isPlainObject(rawConfig) ? rawConfig : $.parseJSON(rawConfig);
+                            } catch (e) {}
+                            new Function('new Magelia.' + attr + '(this.container,this.config)').call({ container: container, config: config });
+                            container.data('initialized', true);
+                        }
+                    }
+                );
+            }
+        }
+    },
+
+    Helpers: {
+        getData: function (container) {
+            var form = null;
+            var antiForgeryToken = Magelia.Helpers.getAntiforgeryToken();
+            if (container.is('form')) {
+                form = container;
+            }
+            else if ((form = container.find('form').first()).length == 0) {
+                var data = container.wrap('<form/>').append(antiForgeryToken).parent().serializeArray();
+                antiForgeryToken.remove();
+                container.unwrap();
+                return data;
+            }
+            form.append(antiForgeryToken);
+            var data = form.serializeArray();
+            antiForgeryToken.remove();
+            return data;
+        },
+
+        getAntiforgeryToken: function () {
+            return Magelia.antiForgeryToken.clone();
+        },
+
+        removeWrapper:function(container){
+            var manageActions = container.children('.manage-actions');
+            if (manageActions.length > 0) {
+                manageActions.remove();
+                container.children().first().unwrap();
+            }
+        },
+
+        submitData: function(container, url, post){
+            var form = $('<form/>').attr({ method: post?'post':'get', action: url }).hide().appendTo(document.body);
+            var values = Magelia.Helpers.getData(container);
+            $(values).each(function () { $('<input/>').attr({ type: 'hidden', name: this.name }).val(this.value).appendTo(form); });
+            if(!post){
+                $('*[name='+Magelia.antiForgeryToken.attr('name')+']',form).remove();
+            }
+            form.submit();
+        }
+    }
+};
+
+$.ajaxSetup({ complete: Magelia.intializeComponents });
+$(document).ready(Magelia.intializeComponents);

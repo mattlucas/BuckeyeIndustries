@@ -1,0 +1,42 @@
+﻿@if (this.WorkContext.CurrentUser == null)
+{
+    @Display(this.New.Unauhtorized())
+}
+else
+{
+    this.Style.Require("Magelia");
+    this.Script.Require("Magelia.AddressesManager");
+    <div class="mag-addressesManager"
+         data-config='
+            {
+                "exceptedAddressId":"@Model.ExceptedAddressId",
+                "canSelect":@((this.Model.CanSelect as Nullable<Boolean> ?? false).ToString().ToLowerInvariant()),
+                "shippingAddressIsDifferent":@((this.Model.ShippingAddressIsDifferent as Nullable<Boolean> ?? false).ToString().ToLowerInvariant()),
+                "promptShippingAddressIsDifferent":@((this.Model.PromptShippingAddressIsDifferent as Nullable<Boolean> ?? false).ToString().ToLowerInvariant()),
+                "getAddressesUrl":"@Url.Action("GetAddresses", "User", new { area = "Magelia.WebStore" })",
+                "newAddressUrl":"@Url.Action("NewAddress", "User", new { area = "Magelia.WebStore" })",
+                "saveAddressUrl":"@Url.Action("SaveAddress", "User", new { area = "Magelia.WebStore" })",
+                "getAddressUrl":"@Url.Action("GetAddress", "User", new { area = "Magelia.WebStore" })",
+                "deleteAddressUrl":"@Url.Action("DeleteAddress", "User", new { area = "Magelia.WebStore" })",
+                "newAddressTriggerSelector":".mag-new",
+                "saveAddressTriggerSelector":".mag-save",
+                "deleteAddressTriggerSelector":".mag-delete",
+                "selectAddressTriggerSelector":".mag-select",
+                "cancelEditionTriggerSelector":".mag-cancel",
+                "addressFieldSelector":".mag-selected-address",
+                "noAddressText":"@T("No address")",
+                "newAddressText":"@T("New address")"
+            }
+         '
+    >
+        <div>
+            @Html.Label("SelectedAddressId", T("Current address : ").ToString())
+            @Html.DropDownList("SelectedAddressId", Enumerable.Empty<SelectListItem>(), new { @class = "mag-selected-address" })
+            <button type="button" class="mag-new">@T("New address")</button>
+            <button type="button" class="mag-save">@T("Save")</button>
+            <button type="button" class="mag-delete">@T("Delete")</button>
+            <button type="button" class="mag-cancel">@T("Cancel")</button>
+            <button type="button" class="mag-select">@T("Select")</button>
+        </div>
+    </div>
+}

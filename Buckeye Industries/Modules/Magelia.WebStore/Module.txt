@@ -1,0 +1,11 @@
+Name: Magelia WebStore
+AntiForgery: enabled
+Author: Magelia
+Website: http://www.magelia.org
+Version: 2.0.1
+OrchardVersion: 1.4
+Description: WebStore e-commerce module makes Magelia WebStore e-commerce features available in Orchard : products, shopping cart, etc.. This module requires Orchard 1.4+ and Magelia WebStore V2.0.333+. This updated version that fixes a few bugs, implements Timezone compatibility, and an updated version of the Magelia Webstore client.
+Features:
+    Magelia.WebStore:
+		Category: Commerce
+		Dependencies: Common, Shapes, Scheduling, Orchard.jQuery, Orchard.Users, Orchard.Widgets

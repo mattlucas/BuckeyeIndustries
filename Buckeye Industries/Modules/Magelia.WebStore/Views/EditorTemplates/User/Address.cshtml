@@ -1,0 +1,109 @@
+﻿@{
+    this.Script.Require("Magelia.Address");
+}
+<div class="mag-address"
+     data-config='
+        {
+            "getRegionsUrl":"@Url.Action("GetRegions", new { controller = "Context", area = "Magelia.WebStore" })",
+            "countryFieldSelector":".mag-country",
+            "regionFieldSelector":".mag-region",
+            "nextTriggerSelector":"button"
+        }
+     '
+>
+    @Html.ValidationSummary()
+    @Html.Hidden("AddressId", this.Model.AddressId as Nullable<Guid>)
+    @if (this.Model.Named)
+    {
+        <div>
+            @Html.Label("Name", T("Name").ToString())
+            @Html.TextBox("Name", this.Model.Name as String, new { @class = "textMedium" })
+            @Html.Hidden("Named", (Boolean)this.Model.Named)
+        </div>
+    }
+    <div>
+        @Html.Label("FirstName", T("First name").ToString())
+        @Html.TextBox("FirstName", this.Model.FirstName as String, new { @class = "textMedium" })
+    </div>
+    <div>
+        @Html.Label("MiddleName", T("Middle name").ToString())
+        @Html.TextBox("MiddleName", this.Model.MiddleName as String, new { @class = "textMedium" })
+    </div>
+    <div>
+        @Html.Label("LastName", T("Last name").ToString())
+        @Html.TextBox("LastName", this.Model.LastName as String, new { @class = "textMedium" })
+    </div>
+    @if (this.Model.PromptEmail)
+    {
+        <div>
+            @Html.Label("Email", T("Email").ToString())
+            @Html.TextBox("Email", this.Model.Email as String, new { @class = "textMedium" })
+            @Html.Hidden("PromptEmail", (Boolean)this.Model.PromptEmail)
+        </div>
+    }
+    <div>
+        @Html.Label("Company", T("Company").ToString())
+        @Html.TextBox("Company", this.Model.Company as String, new { @class = "textMedium" })
+    </div>
+    <div>
+        @Html.Label("Line1", T("Line 1").ToString())
+        @Html.TextBox("Line1", this.Model.Line1 as String, new { @class = "textMedium" })
+    </div>
+    <div>
+        @Html.Label("Line2", T("Line 2").ToString())
+        @Html.TextBox("Line2", this.Model.Line2 as String, new { @class = "textMedium" })
+    </div>
+    <div>
+        @Html.Label("Line3", T("Line 3").ToString())
+        @Html.TextBox("Line3", this.Model.Line3 as String, new { @class = "textMedium" })
+    </div>
+    <div>
+        @Html.Label("Floor", T("Floor").ToString())
+        @Html.TextBox("Floor", this.Model.Floor as String, new { @class = "textMedium" })
+    </div>
+    <div>
+        @Html.Label("DigiCode", T("Digicode").ToString())
+        @Html.TextBox("DigiCode", this.Model.DigiCode as String, new { @class = "textMedium" })
+    </div>
+    <div>
+        @Html.Label("City", T("City").ToString())
+        @Html.TextBox("City", this.Model.City as String, new { @class = "textMedium" })
+    </div>
+    <div>
+        @Html.Label("ZipCode", T("Zip code").ToString())
+        @Html.TextBox("ZipCode", this.Model.ZipCode as String, new { @class = "textMedium" })
+    </div>
+    <div>
+        @Html.Label("CountryId", T("Country").ToString())
+        @Html.DropDownList("CountryId", this.Model.Countries as IEnumerable<SelectListItem>, T("Select country").ToString(), new { @class = "mag-country" })
+    </div>
+    <div>
+        @Html.Label("RegionId", T("Region").ToString())
+        @Html.DropDownList("RegionId", this.Model.Regions as IEnumerable<SelectListItem>, T("Select region").ToString(), new { @class = "mag-region" })
+    </div>
+    <div>
+        @Html.Label("PhoneNumber", T("Phone number").ToString())
+        @Html.TextBox("PhoneNumber", this.Model.PhoneNumber as String, new { @class = "textMedium" })
+    </div>
+    <div>
+        @Html.Label("MobileNumber", T("Mobile number").ToString())
+        @Html.TextBox("MobileNumber", this.Model.MobileNumber as String, new { @class = "textMedium" })
+    </div>
+    <div>
+        @Html.Label("FaxNumber", T("Fax number").ToString())
+        @Html.TextBox("FaxNumber", this.Model.FaxNumber as String, new { @class = "textMedium" })
+    </div>
+    @if (this.Model.PromptShippingAddressIsDifferent)
+    {
+        <div>
+            @Html.Hidden("PromptShippingAddressIsDifferent", (Boolean)this.Model.PromptShippingAddressIsDifferent)
+            @Html.Label("ShippingAddressIsDifferent", T("Shipping address is different").ToString())
+            @Html.CheckBox("ShippingAddressIsDifferent", (Boolean)this.Model.ShippingAddressIsDifferent)
+        </div>
+    }
+    @if (this.Model.DisplayNexButton)
+    {
+        @Html.Hidden("DisplayNexButton", (Boolean)this.Model.DisplayNexButton)
+        <button class="mag-next" type="button">@T("Next")</button>
+    }
+</div>
